@@ -18,7 +18,11 @@ export const EditorHomePage = () => {
       <Header>Web Editor</Header>
       <Contents>
         <ComponentSelector />
-        <Viewer blocks={blocks} />
+        <Viewer
+          blocks={blocks}
+          focusBlock={focusBlock}
+          setFocusBlock={setFocusBlock}
+        />
         <Setting focusBlock={focusBlock} />
       </Contents>
     </Wrap>
