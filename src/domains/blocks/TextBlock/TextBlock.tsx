@@ -1,12 +1,14 @@
-import { Block } from '../Block';
+import { BaseBlockParams, Block } from '../Block';
 
-interface Params {
+interface Params extends BaseBlockParams {
   text: string;
 }
 
 export class TextBlock implements Block {
   text: string;
-  constructor({ text }: Params) {
+  id: string;
+  constructor({ id, text }: Params) {
+    this.id = id;
     this.text = text;
   }
 

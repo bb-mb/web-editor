@@ -1,15 +1,17 @@
 import Image from 'next/image';
-import { Block } from '../Block';
+import { BaseBlockParams, Block } from '../Block';
 
-interface Params {
+interface Params extends BaseBlockParams {
   src: string;
 }
 
 export class ImageBlock implements Block {
   src: string;
-  constructor({ src }: Params) {
+  id: string;
+  constructor({ id, src }: Params) {
+    this.id = id;
     this.src = src;
   }
 
-  render = () => <Image src={this.src} alt="img" />;
+  render = () => <Image src={this.src} alt="img" width={200} height={100} />;
 }
