@@ -9,4 +9,6 @@ export abstract class Block {
   }
 
   render = () => <div></div>;
+
+  renderSetting = () => <div>세팅페이지</div>;
 }
