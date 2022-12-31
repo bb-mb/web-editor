@@ -1,3 +1,5 @@
+import { EditorHomePage } from '@/domains/editor/views';
+
 export default function Home() {
-  return <div>home</div>;
+  return <EditorHomePage />;
 }
