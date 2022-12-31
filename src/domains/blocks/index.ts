@@ -1,1 +1,2 @@
-export { ImageBlock } from './image';
+export { ImageBlock } from './ImageBlock';
+export { TextBlock } from './TextBlock';
