@@ -1,9 +1,8 @@
-import { COLOR } from '@/contants/colors';
-import styled from '@emotion/styled';
-import { ComponentSelector, Setting, Viewer } from '@/domains/editor/section';
 import { useState } from 'react';
-import { Block } from '@/domains/blocks/Block';
-import { ImageBlock, TextBlock } from '@/domains/blocks';
+import styled from '@emotion/styled';
+import { COLOR } from '@/contants/colors';
+import { ComponentSelector, Setting, Viewer } from '@/domains/editor/section';
+import { Block, ImageBlock, TextBlock } from '@/domains/blocks';
 
 export const EditorHomePage = () => {
   const [blocks, setBlocks] = useState<Block[]>([
@@ -12,6 +11,7 @@ export const EditorHomePage = () => {
     new ImageBlock({ id: 'img2', src: '/next.svg' }),
     new TextBlock({ id: 'text2', text: '텍스트입니다.2' }),
   ]);
+  const [focusBlock, setFocusBlock] = useState<Block>();
 
   return (
     <Wrap>
@@ -19,7 +19,7 @@ export const EditorHomePage = () => {
       <Contents>
         <ComponentSelector />
         <Viewer blocks={blocks} />
-        <Setting />
+        <Setting focusBlock={focusBlock} />
       </Contents>
     </Wrap>
   );

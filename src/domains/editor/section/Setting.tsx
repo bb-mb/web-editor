@@ -1,7 +1,18 @@
+import { Block } from '@/domains/blocks';
 import styled from '@emotion/styled';
 
-export const Setting = () => {
-  return <Wrap>setting</Wrap>;
+interface Props {
+  focusBlock?: Block;
+}
+
+export const Setting = ({ focusBlock }: Props) => {
+  return (
+    <Wrap>
+      <span>setting</span>
+      <hr />
+      {focusBlock?.renderSetting()}
+    </Wrap>
+  );
 };
 
 export const Wrap = styled.div`
