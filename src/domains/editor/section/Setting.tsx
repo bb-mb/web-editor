@@ -1,16 +1,21 @@
 import { Block } from '@/domains/blocks';
 import styled from '@emotion/styled';
+import { useCallback } from 'react';
 
 interface Props {
   focusBlock?: Block;
 }
 
 export const Setting = ({ focusBlock }: Props) => {
+  const SettingComponent = useCallback(() => {
+    return focusBlock?.renderSetting() ?? null;
+  }, [focusBlock]);
+
   return (
     <Wrap>
       <span>setting</span>
       <hr />
-      {focusBlock?.renderSetting()}
+      <SettingComponent />
     </Wrap>
   );
 };
