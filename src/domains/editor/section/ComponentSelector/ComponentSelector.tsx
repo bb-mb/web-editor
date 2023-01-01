@@ -1,10 +1,6 @@
+import { blockList } from '@/contants/block';
 import styled from '@emotion/styled';
 import { Draggable, Droppable } from '@hello-pangea/dnd';
-
-const itemList = [
-  { type: 'text', name: '텍스트' },
-  { type: 'image', name: '이미지' },
-];
 
 export const ComponentSelector = () => {
   return (
@@ -15,12 +11,12 @@ export const ComponentSelector = () => {
         {(droppableProvider) => {
           return (
             <List ref={droppableProvider.innerRef}>
-              {itemList.map((item, index) => {
+              {blockList.map((block) => {
                 return (
                   <Draggable
-                    key={item.name}
-                    draggableId={item.name}
-                    index={index}
+                    key={block.name}
+                    draggableId={block.name}
+                    index={block.id}
                   >
                     {(provided, snapshot) => (
                       <>
@@ -30,14 +26,15 @@ export const ComponentSelector = () => {
                           {...provided.dragHandleProps}
                           style={provided.draggableProps.style}
                         >
-                          <Item>{item.name}</Item>
+                          <Item>{block.name}</Item>
                         </div>
-                        {snapshot.isDragging && <Item>{item.name}</Item>}
+                        {snapshot.isDragging && <Item>{block.name}</Item>}
                       </>
                     )}
                   </Draggable>
                 );
               })}
+              {droppableProvider.placeholder}
             </List>
           );
         }}

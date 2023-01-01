@@ -4,7 +4,13 @@ import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 
 import { COLOR } from '@/contants/colors';
 import { ComponentSelector, Setting, Viewer } from '@/domains/editor/section';
-import { ImageBlock, TextBlock, IBlock } from '@/domains/blocks';
+import {
+  ImageBlock,
+  TextBlock,
+  IBlock,
+  createDefaultBlock,
+} from '@/domains/blocks';
+import { BLOCK } from '@/contants/block';
 
 const dummy = [
   new ImageBlock({
@@ -33,15 +39,33 @@ const reorder = (arr: IBlock[], start: number, end: number) => {
   return result;
 };
 
+const copy = (arr: IBlock[], blockId: BLOCK, index: number) => {
+  const newBlock = createDefaultBlock(blockId);
+  if (!newBlock) return arr;
+
+  const result = [...arr];
+  result.splice(index, 0, newBlock);
+
+  return result;
+};
+
 export const EditorHomePage = () => {
   const [blocks, setBlocks] = useState<IBlock[]>(dummy);
   const [focusBlock, setFocusBlock] = useState<IBlock>();
 
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
-    setBlocks((blocks) =>
-      reorder(blocks, result.source.index, result.destination!.index)
-    );
+
+    switch (result.source.droppableId) {
+      case 'blockList':
+        setBlocks((blocks) =>
+          reorder(blocks, result.source.index, result.destination!.index)
+        );
+      case 'selector':
+        setBlocks((blocks) =>
+          copy(blocks, result.source.index, result.destination!.index)
+        );
+    }
   };
 
   return (
