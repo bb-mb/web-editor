@@ -62,9 +62,19 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
 
 const Wrap = styled.div`
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const BlockList = styled.div`
+  width: 100%;
+  max-width: 800px;
+  padding: 20px;
+  flex: 1;
   display: flex;
   flex-direction: column;
+
+  border: 1px solid lavender;
+  border-radius: 12px;
 `;
