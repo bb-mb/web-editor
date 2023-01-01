@@ -25,10 +25,10 @@ const dummy = [
   }),
 ];
 
-const swap = (arr: any[], index1: number, index2: number) => {
+const reorder = (arr: IBlock[], start: number, end: number) => {
   const result = [...arr];
-  result[index1] = arr[index2];
-  result[index2] = arr[index1];
+  const [removed] = result.splice(start, 1);
+  result.splice(end, 0, removed);
 
   return result;
 };
@@ -40,7 +40,7 @@ export const EditorHomePage = () => {
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
     setBlocks((blocks) =>
-      swap(blocks, result.source.index, result.destination!.index)
+      reorder(blocks, result.source.index, result.destination!.index)
     );
   };
 
