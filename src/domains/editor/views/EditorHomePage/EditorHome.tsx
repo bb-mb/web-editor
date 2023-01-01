@@ -17,11 +17,11 @@ export const EditorHomePage = () => {
 
     switch (result.source.droppableId) {
       case 'blockList':
-        setBlocks((blocks) =>
+        return setBlocks((blocks) =>
           reorder(blocks, result.source.index, result.destination!.index)
         );
       case 'selector':
-        setBlocks((blocks) =>
+        return setBlocks((blocks) =>
           copy(blocks, result.source.index, result.destination!.index)
         );
     }
