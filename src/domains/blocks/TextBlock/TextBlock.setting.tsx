@@ -15,12 +15,21 @@ export const TextBlockSetting = ({ initValue, update }: Props) => {
   const formRef = useRef<HTMLFormElement>(null);
   const callSubmit = debounce(() => formRef.current?.requestSubmit(), 100);
 
+  const registerWithSubmit = (name: keyof TextFields) =>
+    register(name, { onChange: callSubmit });
+
   return (
     <div>
       <form ref={formRef} onSubmit={handleSubmit(update)}>
         <label>
           text :
-          <input {...register('text', { onChange: callSubmit })} />
+          <input {...registerWithSubmit('text')} />
+        </label>
+        <br />
+
+        <label>
+          color :
+          <input {...registerWithSubmit('color')} />
         </label>
       </form>
     </div>
