@@ -37,10 +37,11 @@ const StyledBlockWrap = styled.div<{ isFocusBlock: boolean }>`
   ${({ isFocusBlock }) =>
     isFocusBlock &&
     css`
-      border: 1px solid purple;
+      border: 1px solid red;
     `}
 
   &:hover {
-    border: 1px solid lavender;
+    border: ${({ isFocusBlock }) =>
+      `1px solid ${isFocusBlock ? 'red' : 'green'}`};
   }
 `;
