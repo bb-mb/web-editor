@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { IBlock } from '@/domains/blocks';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Props {
   block: IBlock;
@@ -10,7 +10,12 @@ interface Props {
 }
 
 export const BlockWrap = ({ block, isFocusBlock, setFocusBlock }: Props) => {
-  useEffect(() => {}, []);
+  const [_, rerender] = useState({});
+
+  useEffect(() => {
+    const unscribe = block.subscribe(() => rerender({}));
+    return unscribe;
+  }, [block]);
 
   const Component = block.render;
 

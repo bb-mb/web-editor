@@ -11,5 +11,7 @@ export class TextBlock extends Block<TextFields> {
   }
 
   render = () => <p>{this.fields.text}</p>;
-  renderSetting = () => <TextBlockSetting initValue={this.fields} />;
+  renderSetting = () => (
+    <TextBlockSetting update={this.update} initValue={this.fields} />
+  );
 }
