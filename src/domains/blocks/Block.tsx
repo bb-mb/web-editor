@@ -26,7 +26,7 @@ export class Block<Fields> implements IBlock {
 
   getId = () => this.id;
 
-  subscribe = (fn: WatchFn<typeof this.fields>) => {
+  subscribe = (fn: WatchFn<Fields>) => {
     this.watcher = [...this.watcher, fn];
 
     return () => {
@@ -34,7 +34,7 @@ export class Block<Fields> implements IBlock {
     };
   };
 
-  update = (newFields: typeof this.fields) => {
+  update = (newFields: Fields) => {
     this.fields = newFields;
     this.watcher.forEach((fn) => fn(newFields));
   };
