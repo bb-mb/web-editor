@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { TextFields } from './TextBlock';
 
 interface Props {
@@ -6,14 +7,19 @@ interface Props {
 }
 
 export const TextBlockSetting = ({ initValue }: Props) => {
-  const [textFields, setTextFields] = useState(initValue);
+  const { register, handleSubmit } = useForm({
+    mode: 'onChange',
+    defaultValues: initValue,
+  });
 
   return (
     <div>
-      <label>
-        src :
-        <input value={textFields.text} />
-      </label>
+      <form onSubmit={handleSubmit(console.log)}>
+        <label>
+          text :
+          <input {...register('text')} />
+        </label>
+      </form>
     </div>
   );
 };

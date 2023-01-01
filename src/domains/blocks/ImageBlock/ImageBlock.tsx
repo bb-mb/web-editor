@@ -6,12 +6,9 @@ export interface ImageFields {
   src: string;
 }
 
-export class ImageBlock implements Block {
-  id: string;
-  fields: ImageFields;
-  constructor({ id, fields }: { fields: ImageFields } & BaseBlockParams) {
-    this.id = id;
-    this.fields = fields;
+export class ImageBlock extends Block<ImageFields> {
+  constructor({ id, fields }: BaseBlockParams<ImageFields>) {
+    super({ id, fields });
   }
 
   render = () => (

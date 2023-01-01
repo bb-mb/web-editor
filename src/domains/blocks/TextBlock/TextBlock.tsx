@@ -5,15 +5,11 @@ export interface TextFields {
   text: string;
 }
 
-export class TextBlock implements Block {
-  fields: TextFields;
-  id: string;
-  constructor({ id, fields }: { fields: TextFields } & BaseBlockParams) {
-    this.id = id;
-    this.fields = fields;
+export class TextBlock extends Block<TextFields> {
+  constructor({ id, fields }: BaseBlockParams<TextFields>) {
+    super({ id, fields });
   }
 
   render = () => <p>{this.fields.text}</p>;
-
   renderSetting = () => <TextBlockSetting initValue={this.fields} />;
 }
