@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 
 import { COLOR } from '@/contants/colors';
 import { ComponentSelector, Setting, Viewer } from '@/domains/editor/section';

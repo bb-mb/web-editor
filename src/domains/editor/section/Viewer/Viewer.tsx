@@ -1,6 +1,6 @@
 import { IBlock } from '@/domains/blocks';
 import styled from '@emotion/styled';
-import { Draggable, Droppable } from 'react-beautiful-dnd';
+import { Draggable, Droppable } from '@hello-pangea/dnd';
 import { BlockWrap } from './BlockWrap';
 
 interface Props {
