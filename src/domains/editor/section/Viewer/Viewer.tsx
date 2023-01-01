@@ -11,7 +11,7 @@ interface Props {
 
 const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
   userSelect: 'none',
-  background: isDragging ? 'lightgreen' : 'pink',
+  background: isDragging && 'lavender',
   ...draggableStyle,
 });
 
