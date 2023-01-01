@@ -1,9 +1,9 @@
-import { Block } from '@/domains/blocks';
+import { IBlock } from '@/domains/blocks';
 import styled from '@emotion/styled';
 import { useCallback } from 'react';
 
 interface Props {
-  focusBlock?: Block;
+  focusBlock?: IBlock;
 }
 
 export const Setting = ({ focusBlock }: Props) => {

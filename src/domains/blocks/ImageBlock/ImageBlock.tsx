@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { BaseBlockParams, Block } from '../Block';
 import { ImageBlockSetting } from './ImageBlock.setting';
 

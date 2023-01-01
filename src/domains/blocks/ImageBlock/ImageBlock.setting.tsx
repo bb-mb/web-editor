@@ -1,6 +1,6 @@
 import { debounce } from 'lodash-es';
-import { useRef, useState } from 'react';
-import { useForm, UseFormRegister } from 'react-hook-form';
+import { useRef } from 'react';
+import { useForm } from 'react-hook-form';
 import { ImageFields } from './ImageBlock';
 
 interface Props {
