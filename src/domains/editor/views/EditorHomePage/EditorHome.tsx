@@ -4,50 +4,9 @@ import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 
 import { COLOR } from '@/contants/colors';
 import { ComponentSelector, Setting, Viewer } from '@/domains/editor/section';
-import {
-  ImageBlock,
-  TextBlock,
-  IBlock,
-  createDefaultBlock,
-} from '@/domains/blocks';
+import { IBlock, createDefaultBlock } from '@/domains/blocks';
 import { BLOCK } from '@/contants/block';
-
-const dummy = [
-  new ImageBlock({
-    id: 'img1',
-    fields: { src: '/vercel.svg', width: '200', height: '200' },
-  }),
-  new TextBlock({
-    id: 'text1',
-    fields: { text: '텍스트입니다.', color: 'blue' },
-  }),
-  new ImageBlock({
-    id: 'img2',
-    fields: { src: '/next.svg', width: '100', height: '200' },
-  }),
-  new TextBlock({
-    id: 'text2',
-    fields: { text: '텍스트입니다.2', color: '#f00' },
-  }),
-];
-
-const reorder = (arr: IBlock[], start: number, end: number) => {
-  const result = [...arr];
-  const [removed] = result.splice(start, 1);
-  result.splice(end, 0, removed);
-
-  return result;
-};
-
-const copy = (arr: IBlock[], blockId: BLOCK, index: number) => {
-  const newBlock = createDefaultBlock(blockId);
-  if (!newBlock) return arr;
-
-  const result = [...arr];
-  result.splice(index, 0, newBlock);
-
-  return result;
-};
+import { dummy } from './dummy.data';
 
 export const EditorHomePage = () => {
   const [blocks, setBlocks] = useState<IBlock[]>(dummy);
@@ -84,6 +43,24 @@ export const EditorHomePage = () => {
       </Wrap>
     </DragDropContext>
   );
+};
+
+const reorder = (arr: IBlock[], start: number, end: number) => {
+  const result = [...arr];
+  const [removed] = result.splice(start, 1);
+  result.splice(end, 0, removed);
+
+  return result;
+};
+
+const copy = (arr: IBlock[], blockId: BLOCK, index: number) => {
+  const newBlock = createDefaultBlock(blockId);
+  if (!newBlock) return arr;
+
+  const result = [...arr];
+  result.splice(index, 0, newBlock);
+
+  return result;
 };
 
 const Wrap = styled.div`

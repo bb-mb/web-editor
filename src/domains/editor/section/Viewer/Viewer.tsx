@@ -9,12 +9,6 @@ interface Props {
   setFocusBlock: (block?: IBlock) => void;
 }
 
-const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
-  userSelect: 'none',
-  background: isDragging ? 'lavender' : undefined,
-  ...draggableStyle,
-});
-
 export const Viewer = ({ blocks, focusBlock, setFocusBlock }: Props) => {
   const clearFocus = () => setFocusBlock(undefined);
 
@@ -59,6 +53,12 @@ export const Viewer = ({ blocks, focusBlock, setFocusBlock }: Props) => {
     </Wrap>
   );
 };
+
+const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
+  userSelect: 'none',
+  background: isDragging ? 'lavender' : undefined,
+  ...draggableStyle,
+});
 
 const Wrap = styled.div`
   flex: 1;
