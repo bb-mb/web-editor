@@ -6,14 +6,14 @@ export interface TextFields {
 }
 
 export class TextBlock implements Block {
-  text: string;
+  fields: TextFields;
   id: string;
-  constructor({ id, text }: TextFields & BaseBlockParams) {
+  constructor({ id, fields }: { fields: TextFields } & BaseBlockParams) {
     this.id = id;
-    this.text = text;
+    this.fields = fields;
   }
 
-  render = () => <p>{this.text}</p>;
+  render = () => <p>{this.fields.text}</p>;
 
-  renderSetting = () => <TextBlockSetting initValue={{ text: this.text }} />;
+  renderSetting = () => <TextBlockSetting initValue={this.fields} />;
 }

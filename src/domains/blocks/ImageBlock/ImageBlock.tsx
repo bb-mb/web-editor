@@ -7,14 +7,16 @@ export interface ImageFields {
 }
 
 export class ImageBlock implements Block {
-  src: string;
   id: string;
-  constructor({ id, src }: ImageFields & BaseBlockParams) {
+  fields: ImageFields;
+  constructor({ id, fields }: { fields: ImageFields } & BaseBlockParams) {
     this.id = id;
-    this.src = src;
+    this.fields = fields;
   }
 
-  render = () => <Image src={this.src} alt="img" width={200} height={100} />;
+  render = () => (
+    <Image src={this.fields.src} alt="img" width={200} height={100} />
+  );
 
-  renderSetting = () => <ImageBlockSetting initValue={{ src: this.src }} />;
+  renderSetting = () => <ImageBlockSetting initValue={this.fields} />;
 }
