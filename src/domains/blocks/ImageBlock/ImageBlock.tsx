@@ -12,8 +12,10 @@ export class ImageBlock extends Block<ImageFields> {
   }
 
   render = () => (
-    <Image src={this.fields.src} alt="img" width={200} height={100} />
+    <img src={this.fields.src} alt="img" width={200} height={100} />
   );
 
-  renderSetting = () => <ImageBlockSetting initValue={this.fields} />;
+  renderSetting = () => (
+    <ImageBlockSetting update={this.update} initValue={this.fields} />
+  );
 }
