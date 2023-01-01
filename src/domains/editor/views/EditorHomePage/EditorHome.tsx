@@ -2,16 +2,24 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 import { COLOR } from '@/contants/colors';
 import { ComponentSelector, Setting, Viewer } from '@/domains/editor/section';
-import { Block, ImageBlock, TextBlock } from '@/domains/blocks';
+import { ImageBlock, TextBlock, IBlock } from '@/domains/blocks';
+
+const dummy = [
+  new ImageBlock({
+    id: 'img1',
+    fields: { src: '/vercel.svg', width: '200', height: '200' },
+  }),
+  new TextBlock({ id: 'text1', fields: { text: '텍스트입니다.' } }),
+  new ImageBlock({
+    id: 'img2',
+    fields: { src: '/next.svg', width: '100', height: '200' },
+  }),
+  new TextBlock({ id: 'text2', fields: { text: '텍스트입니다.2' } }),
+];
 
 export const EditorHomePage = () => {
-  const [blocks, setBlocks] = useState<Block[]>([
-    new ImageBlock({ id: 'img1', fields: { src: '/vercel.svg' } }),
-    new TextBlock({ id: 'text1', fields: { text: '텍스트입니다.' } }),
-    new ImageBlock({ id: 'img2', fields: { src: '/next.svg' } }),
-    new TextBlock({ id: 'text2', fields: { text: '텍스트입니다.2' } }),
-  ]);
-  const [focusBlock, setFocusBlock] = useState<Block>();
+  const [blocks, setBlocks] = useState<IBlock[]>(dummy);
+  const [focusBlock, setFocusBlock] = useState<IBlock>();
 
   return (
     <Wrap>
