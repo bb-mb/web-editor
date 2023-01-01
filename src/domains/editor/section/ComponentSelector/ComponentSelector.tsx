@@ -1,4 +1,5 @@
 import { blockList } from '@/contants/block';
+import { createDefaultBlock } from '@/domains/blocks';
 import styled from '@emotion/styled';
 import { Draggable, Droppable } from '@hello-pangea/dnd';
 
@@ -12,6 +13,8 @@ export const ComponentSelector = () => {
           return (
             <List ref={droppableProvider.innerRef}>
               {blockList.map((block) => {
+                const Preview = createDefaultBlock(block.id)!.render;
+
                 return (
                   <Draggable
                     key={block.name}
@@ -24,9 +27,16 @@ export const ComponentSelector = () => {
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
-                          style={provided.draggableProps.style}
+                          style={getItemStyle(
+                            snapshot.isDragging,
+                            provided.draggableProps.style
+                          )}
                         >
-                          <Item>{block.name}</Item>
+                          {snapshot.isDragging ? (
+                            <Preview />
+                          ) : (
+                            <Item>{block.name}</Item>
+                          )}
                         </div>
                         {snapshot.isDragging && <Item>{block.name}</Item>}
                       </>
@@ -41,6 +51,17 @@ export const ComponentSelector = () => {
       </Droppable>
     </Wrap>
   );
+};
+
+const getItemStyle = (isDragging: boolean, draggableStyle: any) => {
+  return {
+    ...draggableStyle,
+    width: 'auto',
+    minWidth: 250,
+    height: 'auto',
+    userSelect: 'none',
+    background: isDragging ? 'lavender' : undefined,
+  };
 };
 
 const Wrap = styled.div`
