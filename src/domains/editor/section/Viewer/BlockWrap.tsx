@@ -13,8 +13,8 @@ export const BlockWrap = ({ block, isFocusBlock, setFocusBlock }: Props) => {
   const [_, rerender] = useState({});
 
   useEffect(() => {
-    const unscribe = block.subscribe(() => rerender({}));
-    return unscribe;
+    const unsubscribe = block.subscribe(() => rerender({}));
+    return unsubscribe;
   }, [block]);
 
   const Component = block.render;
