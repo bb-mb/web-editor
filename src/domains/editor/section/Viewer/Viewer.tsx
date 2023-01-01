@@ -13,7 +13,8 @@ export const Viewer = ({ blocks, focusBlock, setFocusBlock }: Props) => {
 
   return (
     <Wrap onClick={clearFocus}>
-      Viewer
+      <p>Viewer</p>
+      <hr />
       <BlockList>
         {blocks.map((block) => {
           return (

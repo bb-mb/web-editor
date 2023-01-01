@@ -13,7 +13,7 @@ export const Setting = ({ focusBlock }: Props) => {
 
   return (
     <Wrap>
-      <span>setting</span>
+      <p>setting</p>
       <hr />
       <SettingComponent />
     </Wrap>
