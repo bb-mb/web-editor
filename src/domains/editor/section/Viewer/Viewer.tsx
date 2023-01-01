@@ -1,5 +1,6 @@
 import { IBlock } from '@/domains/blocks';
 import styled from '@emotion/styled';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { BlockWrap } from './BlockWrap';
 
 interface Props {
@@ -8,6 +9,12 @@ interface Props {
   setFocusBlock: (block?: IBlock) => void;
 }
 
+const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
+  userSelect: 'none',
+  background: isDragging ? 'lightgreen' : 'pink',
+  ...draggableStyle,
+});
+
 export const Viewer = ({ blocks, focusBlock, setFocusBlock }: Props) => {
   const clearFocus = () => setFocusBlock(undefined);
 
@@ -15,18 +22,40 @@ export const Viewer = ({ blocks, focusBlock, setFocusBlock }: Props) => {
     <Wrap onClick={clearFocus}>
       <p>Viewer</p>
       <hr />
-      <BlockList>
-        {blocks.map((block) => {
-          return (
-            <BlockWrap
-              key={block.getId()}
-              block={block}
-              isFocusBlock={block === focusBlock}
-              setFocusBlock={setFocusBlock}
-            />
-          );
-        })}
-      </BlockList>
+      <Droppable droppableId="blockList">
+        {(droppableProvided) => (
+          <BlockList ref={droppableProvided.innerRef}>
+            {blocks.map((block, index) => {
+              return (
+                <Draggable
+                  key={block.getId()}
+                  draggableId={block.getId()}
+                  index={index}
+                >
+                  {(draggableProvided, draggableSnapshot) => (
+                    <div
+                      ref={draggableProvided.innerRef}
+                      {...draggableProvided.draggableProps}
+                      {...draggableProvided.dragHandleProps}
+                      style={getItemStyle(
+                        draggableSnapshot.isDragging,
+                        draggableProvided.draggableProps.style
+                      )}
+                    >
+                      <BlockWrap
+                        block={block}
+                        isFocusBlock={block === focusBlock}
+                        setFocusBlock={setFocusBlock}
+                      />
+                    </div>
+                  )}
+                </Draggable>
+              );
+            })}
+            {droppableProvided.placeholder}
+          </BlockList>
+        )}
+      </Droppable>
     </Wrap>
   );
 };

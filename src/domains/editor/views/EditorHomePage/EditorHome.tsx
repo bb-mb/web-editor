@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
 import { COLOR } from '@/contants/colors';
 import { ComponentSelector, Setting, Viewer } from '@/domains/editor/section';
@@ -24,23 +25,40 @@ const dummy = [
   }),
 ];
 
+const swap = (arr: any[], index1: number, index2: number) => {
+  const result = [...arr];
+  result[index1] = arr[index2];
+  result[index2] = arr[index1];
+
+  return result;
+};
+
 export const EditorHomePage = () => {
   const [blocks, setBlocks] = useState<IBlock[]>(dummy);
   const [focusBlock, setFocusBlock] = useState<IBlock>();
 
+  const onDragEnd = (result: DropResult) => {
+    if (!result.destination) return;
+    setBlocks((blocks) =>
+      swap(blocks, result.source.index, result.destination!.index)
+    );
+  };
+
   return (
-    <Wrap>
-      <Header>Web Editor</Header>
-      <Contents>
-        <ComponentSelector />
-        <Viewer
-          blocks={blocks}
-          focusBlock={focusBlock}
-          setFocusBlock={setFocusBlock}
-        />
-        <Setting focusBlock={focusBlock} />
-      </Contents>
-    </Wrap>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Wrap>
+        <Header>Web Editor</Header>
+        <Contents>
+          <ComponentSelector />
+          <Viewer
+            blocks={blocks}
+            focusBlock={focusBlock}
+            setFocusBlock={setFocusBlock}
+          />
+          <Setting focusBlock={focusBlock} />
+        </Contents>
+      </Wrap>
+    </DragDropContext>
   );
 };
 
