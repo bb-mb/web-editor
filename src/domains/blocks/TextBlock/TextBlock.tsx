@@ -13,6 +13,10 @@ export class TextBlock extends Block<TextFields> {
 
   render = () => <p style={{ color: this.fields.color }}>{this.fields.text}</p>;
   renderSetting = () => (
-    <TextBlockSetting update={this.update} initValue={this.fields} />
+    <TextBlockSetting
+      updateBlock={this.update}
+      deleteBlock={this.delete}
+      initValue={this.fields}
+    />
   );
 }

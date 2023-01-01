@@ -5,20 +5,23 @@ export interface BaseBlockParams<T> {
   fields: T;
 }
 
-type WatchFn<Fields> = (fields: Fields) => void;
+interface Watch {
+  action: 'update' | 'delete';
+  listener: (block: IBlock) => void;
+}
 
 export interface IBlock {
   getId: () => string;
   render: () => ReactElement;
   renderSetting: () => ReactElement;
-  subscribe: (fields: any) => () => void;
+  subscribe: (fields: Watch) => () => void;
   update: (newFields: any) => void;
 }
 
 export class Block<Fields> implements IBlock {
   id: string;
   fields: Fields;
-  watcher: WatchFn<typeof this.fields>[] = [];
+  watcher: Watch[] = [];
   constructor({ id, fields }: BaseBlockParams<Fields>) {
     this.id = id;
     this.fields = fields;
@@ -26,17 +29,25 @@ export class Block<Fields> implements IBlock {
 
   getId = () => this.id;
 
-  subscribe = (fn: WatchFn<Fields>) => {
-    this.watcher = [...this.watcher, fn];
+  subscribe = (watch: Watch) => {
+    this.watcher = [...this.watcher, watch];
 
     return () => {
-      this.watcher = this.watcher.filter((item) => item !== fn);
+      this.watcher = this.watcher.filter((item) => item !== watch);
     };
   };
 
   update = (newFields: Fields) => {
     this.fields = newFields;
-    this.watcher.forEach((fn) => fn(newFields));
+    this.watcher
+      .filter((item) => item.action === 'update')
+      .forEach((item) => item.listener(this));
+  };
+
+  delete = () => {
+    this.watcher
+      .filter((item) => item.action === 'delete')
+      .forEach((item) => item.listener(this));
   };
 
   render = () => <div></div>;

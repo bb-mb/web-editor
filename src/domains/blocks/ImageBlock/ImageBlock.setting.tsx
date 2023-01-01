@@ -5,10 +5,15 @@ import { ImageFields } from './ImageBlock';
 
 interface Props {
   initValue: ImageFields;
-  update: (newFields: ImageFields) => void;
+  updateBlock: (newFields: ImageFields) => void;
+  deleteBlock: () => void;
 }
 
-export const ImageBlockSetting = ({ initValue, update }: Props) => {
+export const ImageBlockSetting = ({
+  initValue,
+  updateBlock,
+  deleteBlock,
+}: Props) => {
   const { register, handleSubmit } = useForm({
     defaultValues: initValue,
   });
@@ -20,7 +25,7 @@ export const ImageBlockSetting = ({ initValue, update }: Props) => {
 
   return (
     <div>
-      <form ref={formRef} onSubmit={handleSubmit(update)}>
+      <form ref={formRef} onSubmit={handleSubmit(updateBlock)}>
         <label>
           width :
           <input {...registerWithSubmit('width')} />
@@ -37,6 +42,11 @@ export const ImageBlockSetting = ({ initValue, update }: Props) => {
           src :
           <input {...registerWithSubmit('src')} />
         </label>
+
+        <br />
+        <button type="button" onClick={deleteBlock}>
+          삭제하기
+        </button>
       </form>
     </div>
   );

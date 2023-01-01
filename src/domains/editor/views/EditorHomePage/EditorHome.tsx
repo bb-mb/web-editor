@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 
@@ -11,6 +11,17 @@ import { dummy } from './dummy.data';
 export const EditorHomePage = () => {
   const [blocks, setBlocks] = useState<IBlock[]>(dummy);
   const [focusBlock, setFocusBlock] = useState<IBlock>();
+
+  useEffect(() => {
+    const unsubscribeList = blocks.map((block) =>
+      block.subscribe({
+        action: 'delete',
+        listener: () =>
+          setBlocks((blocks) => blocks.filter((item) => item !== block)),
+      })
+    );
+    return () => unsubscribeList.forEach((fn) => fn());
+  }, [blocks]);
 
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;

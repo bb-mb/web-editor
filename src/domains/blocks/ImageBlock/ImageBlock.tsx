@@ -23,6 +23,10 @@ export class ImageBlock extends Block<ImageFields> {
   );
 
   renderSetting = () => (
-    <ImageBlockSetting update={this.update} initValue={this.fields} />
+    <ImageBlockSetting
+      deleteBlock={this.delete}
+      updateBlock={this.update}
+      initValue={this.fields}
+    />
   );
 }

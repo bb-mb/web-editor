@@ -5,10 +5,15 @@ import { TextFields } from './TextBlock';
 
 interface Props {
   initValue: TextFields;
-  update: (fields: TextFields) => void;
+  updateBlock: (fields: TextFields) => void;
+  deleteBlock: () => void;
 }
 
-export const TextBlockSetting = ({ initValue, update }: Props) => {
+export const TextBlockSetting = ({
+  initValue,
+  updateBlock,
+  deleteBlock,
+}: Props) => {
   const { register, handleSubmit } = useForm({
     defaultValues: initValue,
   });
@@ -20,7 +25,7 @@ export const TextBlockSetting = ({ initValue, update }: Props) => {
 
   return (
     <div>
-      <form ref={formRef} onSubmit={handleSubmit(update)}>
+      <form ref={formRef} onSubmit={handleSubmit(updateBlock)}>
         <label>
           text :
           <input {...registerWithSubmit('text')} />
@@ -31,6 +36,10 @@ export const TextBlockSetting = ({ initValue, update }: Props) => {
           color :
           <input {...registerWithSubmit('color')} />
         </label>
+
+        <button type="button" onClick={deleteBlock}>
+          삭제하기
+        </button>
       </form>
     </div>
   );
