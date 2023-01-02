@@ -8,10 +8,6 @@ export interface ImageFields {
 }
 
 export class ImageBlock extends Block<ImageFields> {
-  constructor({ id, fields }: BaseBlockParams<ImageFields>) {
-    super({ id, fields });
-  }
-
   render = () => (
     // eslint-disable-next-line @next/next/no-img-element
     <img

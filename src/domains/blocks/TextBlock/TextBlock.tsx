@@ -7,10 +7,6 @@ export interface TextFields {
 }
 
 export class TextBlock extends Block<TextFields> {
-  constructor({ id, fields }: BaseBlockParams<TextFields>) {
-    super({ id, fields });
-  }
-
   render = () => <p style={{ color: this.fields.color }}>{this.fields.text}</p>;
   renderSetting = () => (
     <TextBlockSetting
